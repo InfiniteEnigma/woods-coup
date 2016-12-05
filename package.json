@@ -1,0 +1,22 @@
+{
+  "name": "woods-coup",
+  "version": "0.0.1",
+  "description": "Coup bot for discord. Woodlands only!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elixirical/woods-coup.git"
+  },
+  "author": "The Woodlands Discord Server",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elixirical/woods-coup/issues"
+  },
+  "homepage": "https://github.com/elixirical/woods-coup#readme",
+  "dependencies": {
+    "discord.js": "^10.0.1"
+  }
+}
