@@ -34,7 +34,7 @@ function coupGame(playerNum, ambassadorInquisitor) {
       deck.push("Inquisitor");
     }
   }
-  for (var i = 0; i < 50) + 1; i++) {
+  for (var i = 1; i < 50; i++) {
     deck = shuffleArray(deck);
   }
 }
