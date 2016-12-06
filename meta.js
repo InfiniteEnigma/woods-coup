@@ -28,18 +28,19 @@ function startGame(arg, array, IorA) {
   if (gameActive == false) {
     if (array.length >= 1) {
       gameActive = true;
-      if (arg.content == "!start") {
-        arg.channel.sendMessage("Please specifiy '!start a' or '!start i' for ambassadors or inquisitors to begin game.");
+      if (arg.content.startsWith("!start")) {
+        else if (arg.content == "!start i") {
+          IorA = 2;
+          arg.channel.sendMessage("The game has begun! We will be playing with inquisitors. Check your DMs for further info.");
+        }
+        else if (arg.content == "!start a") {
+          IorA = 1;
+          arg.channel.sendMessage("The game has begun! We will be playing with ambassadors. Check your DMs for further info.");
+        }
+        else {
+          arg.channel.sendMessage("Please indicate '!start a' or '!start i' for ambassador or inquisitor");
+        }
       }
-      else if (arg.content == "!start i") {
-        IorA = 2;
-        arg.channel.sendMessage("The game has begun! We will be playing with inquisitors. Check your DMs for further info.");
-      }
-      else if (arg.content == "!start a") {
-        IorA = 1;
-        arg.channel.sendMessage("The game has begun! We will be playing with ambassadors. Check your DMs for further info.");
-      }
-
       //Creates a new list with all the plyers, and turns them into objects with their role and stuff.
       /*for (n in array) {
         array.push(n)
