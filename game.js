@@ -18,7 +18,6 @@ function coupGame(playerNum, ambassadorInquisitor) {
     cardCount = 3;
   }
   else {
-<<<<<<< HEAD
     for (let i = 1; i <= playerNum; i++) {
       cardCount = 3;
     }
@@ -33,7 +32,6 @@ function coupGame(playerNum, ambassadorInquisitor) {
       else if (ambassadorInquisitor == 2) {
         deck.push("Inquisitor");
       }
-=======
     for (let a in playerNum) {
       playerMoney.push(2);
     }
@@ -46,18 +44,14 @@ function coupGame(playerNum, ambassadorInquisitor) {
     deck.push("Assassin");
     if (ambassadorInquisitor == 1) {
       deck.push("Ambassador");
->>>>>>> origin/master
     }
     for (let i = 1; i <= 50; i++) {
       deck = shuffleArray(deck);
     }
-<<<<<<< HEAD
     console.log(deck);
-=======
   }
   for (var c = 1; c < 50; c++) {
     deck = shuffleArray(deck);
->>>>>>> origin/master
   }
   console.log(deck);
 }
