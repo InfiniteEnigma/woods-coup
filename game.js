@@ -19,16 +19,7 @@ function coupGame(playerNum, ambassadorInquisitor) {
   }
   else {
     for (let i in playerNum) {
-      playerMoney.push(2);
-      playerMoney[i-1] = 2;
-      if (playerNum >= 5) {
-        cardCount = 3;
-      }
-      else {
-        cardCount = 3 + (Math.ceil((playerNum-5)/3))
-      }
-    }
-    cardCount = 3 + (Math.ceil((playerNum-5)/3);
+    cardCount = 3 + Math.ceil((playerNum-5)/3);
   }
   for (let i in cardCount) {
     deck.push("Captain");
