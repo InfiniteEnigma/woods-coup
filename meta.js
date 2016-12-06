@@ -24,21 +24,19 @@ function leaveGame(arg, array) {
   }
 }
 
-function startGame(arg, array, gameArray, IorA) {
+function startGame(arg, array, IorA) {
   if (gameActive == false) {
     if (array.length >= 1) {
       gameActive = true;
       if (arg.content == "!start") {
-        arg.channel.sendMessage("Please specifiy '!start a' or '!start i' for ambassadors or inquisitors to begin game.")
+        arg.channel.sendMessage("Please specifiy '!start a' or '!start i' for ambassadors or inquisitors to begin game.");
       }
       else if (arg.content == "!start i") {
         IorA = 2;
-        temp = "inquisitors";
         arg.channel.sendMessage("The game has begun! We will be playing with inquisitors. Check your DMs for further info.");
       }
       else if (arg.content == "!start a") {
         IorA = 1;
-        temp = "ambassadors";
         arg.channel.sendMessage("The game has begun! We will be playing with ambassadors. Check your DMs for further info.");
       }
 
@@ -58,11 +56,14 @@ function startGame(arg, array, gameArray, IorA) {
   }
 }
 
-function killGame(arg, state, array, gameArray) {
+//Not working for some reason
+function killGame(arg, state, array, IorA) {
   if (state == true) {
     state = false;
     array = [];
+    IorA = 0;
     arg.channel.sendMessage("The game has been killed and all players have been purged! Please type '!join' to rejoin the game.");
+    console.log(state, array, IorA);
   }
   else if (state == false) {
     arg.channel.sendMessage("The game has not begun yet.");
