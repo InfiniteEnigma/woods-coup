@@ -16,10 +16,9 @@ bot.on("message", msg => {
   }
 
   //Joining a game if game is inactive
-  else if (((msg.content.startsWith(prefix + "join")) || (msg.content.startWith(prefix + "j"))) && (gameActive == false)) {
-    var temp = players.indexOf(msg.author);
-    if (temp == -1) {
-      players = players.push(msg.author);
+  else if (((msg.content.startsWith(prefix + "join")) || (msg.content.startsWith(prefix + "j"))) && (gameActive == false)) {
+    if (players.indexOf(msg.author) === -1) {
+      players.push(msg.author);
       msg.channel.sendMessage(msg.author + " has joined the game!");
     }
     else {
@@ -28,14 +27,13 @@ bot.on("message", msg => {
   }
 
   //Leaving a game if game is inactive
-  else if (((msg.content.startsWith(prefix + "leave")) || (msg.content.startWith(prefix + "l"))) && (gameActive == false)) {
-    var temp = players.indexOf(msg.author);
-    if (temp == -1) {
+  else if (((msg.content.startsWith(prefix + "leave")) || (msg.content.startsWith(prefix + "l"))) && (gameActive == false)) {
+    if (players.indexOf(msg.author) === -1) {
       msg.channel.sendMessage("You are not in the game!");
     }
-    if (temp > -1) {
-      players = players.splice(pos, temp);
-      msg.channel.sendMessage("You are have been removed from the game!");
+    if (players.indexOf(msg.author) > -1) {
+      players.splice(players.indexOf(msg.author), 1);
+      msg.channel.sendMessage("You have been removed from the game!");
     }
   }
 
