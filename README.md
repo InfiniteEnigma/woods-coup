@@ -4,3 +4,5 @@ Just a little experiment. Its functional but a far cry from fully featured. You 
 
 To run, make sure you have node.js and a Discord bot.
 Put the bot token in the bottom of index.js, then in the directory run "node index.js"
+
+Using rough help from https://eslachance.gitbooks.io/discord-js-bot-guide/ and built with discord.js (https://discord.js.org/).
