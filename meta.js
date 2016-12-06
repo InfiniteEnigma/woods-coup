@@ -1,41 +1,72 @@
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
-}
-function coupGame(playerNum, ambassadorInquisitor) {
-  var playerMoney = [];
-  var cardCount;
-  var deck = [];
-  if (playerNum == 2) {
-      playerMoney.push(1);
-      playerMoney.push(2);
-      cardCount = 3;
+/*
+Meta actions like leaving, joining
+kicking, killing the game, starting,
+etc.
+*/
+
+function joinGame(arg, array) {
+  if (array.indexOf(arg.author) === -1) {
+    array.push(arg.author);
+    arg.channel.sendMessage(arg.author + " has joined the game!");
   }
   else {
-    for (let i in playerNum) {
-      playerMoney.push(2);
-    }
-    cardCount = 3 + (Math.ceil((playerNum-5)/3);
-  }
-  for (let i in cardCount) {
-    deck.push("Captain");
-    deck.push("Duke");
-    deck.push("Contessa");
-    deck.push("Assassin");
-    if (ambassadorInquisitor == 1) {
-      deck.push("Ambassador");
-    }
-    else if (ambassadorInquisitor == 2) {
-      deck.push("Inquisitor");
-    }
-  }
-  for (var i = 1; i < 50; i++) {
-    deck = shuffleArray(deck);
+    arg.channel.sendMessage(arg.author + " has had an error joining the game! Perhaps they are already entered?");
   }
 }
-coupGame(3,1);
+
+function leaveGame(arg, array) {
+  if (array.indexOf(arg.author) === -1) {
+    arg.channel.sendMessage(arg.author + " is not in the game!");
+  }
+  if (array.indexOf(arg.author) > -1) {
+    array.splice(array.indexOf(arg.author), 1);
+    arg.channel.sendMessage(arg.author + " has been removed from the game!");
+  }
+}
+
+function startGame(arg, array, IorA) {
+  if (gameActive == false) {
+    if (array.length >= 1) {
+      gameActive = true;
+      if (arg.content.startsWith("!start")) {
+        if (arg.content == "!start i") {
+          IorA = 2;
+          arg.channel.sendMessage("The game has begun! We will be playing with inquisitors. Check your DMs for further info.");
+        }
+        else if (arg.content == "!start a") {
+          IorA = 1;
+          arg.channel.sendMessage("The game has begun! We will be playing with ambassadors. Check your DMs for further info.");
+        }
+        else {
+          arg.channel.sendMessage("Please indicate '!start a' or '!start i' for ambassador or inquisitor");
+        }
+      }
+      //Creates a new list with all the plyers, and turns them into objects with their role and stuff.
+      /*for (n in array) {
+        array.push(n)
+      }*/
+    }
+
+    else {
+      arg.channel.sendMessage("Not enough players.");
+    }
+  }
+
+  else if (gameActive == true) {
+    arg.channel.sendMessage("The game has already begun!");
+  }
+}
+
+//Not working for some reason
+function killGame(arg, state, array, IorA) {
+  if (state == true) {
+    state = false;
+    array = [];
+    IorA = 0;
+    arg.channel.sendMessage("The game has been killed and all players have been purged! Please type '!join' to rejoin the game.");
+    console.log(state, array, IorA);
+  }
+  else if (state == false) {
+    arg.channel.sendMessage("The game has not begun yet.");
+  }
+}
