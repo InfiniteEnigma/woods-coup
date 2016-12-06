@@ -16,10 +16,8 @@ bot.on("message", msg => {
 
   let prefix = "!";
 
-  if (!msg.content.startsWith(prefix)) return;
-
   //Test bot response.
-  else if (msg.content.startsWith(prefix + "ping")) {
+  if (msg.content.startsWith(prefix + "ping")) {
     msg.channel.sendMessage("Hi " + msg.author + "!");
   }
 
@@ -29,7 +27,7 @@ bot.on("message", msg => {
   }
 
   //Leaving a game if game is inactive
-  else if (((msg.content == "!leave") || (msg.content == "!l")) && (gameActive == false)) {
+  else if ( ( (msg.content == "!leave") || (msg.content == "!l") ) && (gameActive == false) ) {
     leaveGame(msg, players);
   }
 
@@ -44,7 +42,7 @@ bot.on("message", msg => {
   }
 
   //Starts game
-  else if (msg.content.startsWith("!start ")) {
+  else if (msg.content.startsWith("!start")) {
     startGame(msg, players, ambassadorInquisitor);
   }
 

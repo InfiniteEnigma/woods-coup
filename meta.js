@@ -29,7 +29,7 @@ function startGame(arg, array, IorA) {
     if (array.length >= 1) {
       gameActive = true;
       if (arg.content.startsWith("!start")) {
-        else if (arg.content == "!start i") {
+        if (arg.content == "!start i") {
           IorA = 2;
           arg.channel.sendMessage("The game has begun! We will be playing with inquisitors. Check your DMs for further info.");
         }
