@@ -29,6 +29,10 @@ bot.on("message", msg => {
     leaveGame(msg, players)
   }
 
+  else if (msg.content.startsWith(prefix + "players")) {
+    msg.channel.sendMessage(players)
+  }
+
 });
 
 bot.on('ready', () => {
