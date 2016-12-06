@@ -1,0 +1,4 @@
+Opening
+	Get players (2 or greater)
+	Shuffle enough cards into deck for balanced game
+	
