@@ -35,4 +35,4 @@ bot.on('ready', () => {
   console.log('I am ready!');
 });
 
-bot.login("yourcomplicatedBotTokenhere");
+bot.login("token");
