@@ -18,12 +18,12 @@ function coupGame(playerNum, ambassadorInquisitor) {
       cardCount = 3;
   }
   else {
-    for (let i in playerNum) {
+    for (let a in playerNum) {
       playerMoney.push(2);
     }
     cardCount = 3 + (Math.ceil((playerNum-5)/3);
   }
-  for (let i in cardCount) {
+  for (let b in cardCount) {
     deck.push("Captain");
     deck.push("Duke");
     deck.push("Contessa");
@@ -35,8 +35,9 @@ function coupGame(playerNum, ambassadorInquisitor) {
       deck.push("Inquisitor");
     }
   }
-  for (var i = 1; i < 50; i++) {
+  for (var c = 1; c < 50; c++) {
     deck = shuffleArray(deck);
   }
+  console.log(deck);
 }
 coupGame(3,1);
