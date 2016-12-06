@@ -24,22 +24,41 @@ function leaveGame(arg, array) {
   }
 }
 
-function startGame(arg, array) {
+function startGame(arg, array, gameArray, IorA) {
   if (gameActive == false) {
-    if (array.length >= 2) {
+    if (array.length >= 1) {
       gameActive = true;
-      arg.channel.sendMessage("The game has begun! (Don't bother to) Check your DMs for further info.");
+      if (arg.content == "!start") {
+        arg.channel.sendMessage("Please specifiy '!start a' or '!start i' for ambassadors or inquisitors to begin game.")
+      }
+      else if (arg.content == "!start i") {
+        IorA = 2;
+        temp = "inquisitors";
+        arg.channel.sendMessage("The game has begun! We will be playing with inquisitors. Check your DMs for further info.");
+      }
+      else if (arg.content == "!start a") {
+        IorA = 1;
+        temp = "ambassadors";
+        arg.channel.sendMessage("The game has begun! We will be playing with ambassadors. Check your DMs for further info.");
+      }
+
+      //Creates a new list with all the plyers, and turns them into objects with their role and stuff.
+      /*for (n in array) {
+        array.push(n)
+      }*/
     }
+
     else {
       arg.channel.sendMessage("Not enough players.");
     }
   }
+
   else if (gameActive == true) {
     arg.channel.sendMessage("The game has already begun!");
   }
 }
 
-function killGame(arg, state, array) {
+function killGame(arg, state, array, gameArray) {
   if (state == true) {
     state = false;
     array = [];

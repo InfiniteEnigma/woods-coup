@@ -6,7 +6,9 @@ var meta = require('fs');
 eval(meta.readFileSync('meta.js')+'');
 
 var gameActive = false;
+var ambassadorInquisitor = 0; // 0 = game has not started; 1 = ambassador; 2 = inquisitor
 var players = [];
+var playersGame = [];
 
 bot.on("message", msg => {
 
@@ -40,8 +42,8 @@ bot.on("message", msg => {
   }
 
   //Starts game
-  else if (msg.content == "!start") {
-    startGame(msg, players);
+  else if (msg.content.startsWith("!start ")) {
+    startGame(msg, players, playersGame, ambassadorInquisitor);
   }
 
   //Kills game
