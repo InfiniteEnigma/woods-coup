@@ -1,6 +1,10 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 
+//include meta.js
+var meta = require('fs');
+eval(meta.readFileSync('meta.js')+'');
+
 var gameActive = false
 var players = [];
 
@@ -17,24 +21,12 @@ bot.on("message", msg => {
 
   //Joining a game if game is inactive
   else if (((msg.content.startsWith(prefix + "join")) || (msg.content.startsWith(prefix + "j"))) && (gameActive == false)) {
-    if (players.indexOf(msg.author) === -1) {
-      players.push(msg.author);
-      msg.channel.sendMessage(msg.author + " has joined the game!");
-    }
-    else {
-      msg.channel.sendMessage("Error joining the game! Perhaps you are already entered?");
-    }
+    joinGame(msg, players)
   }
 
   //Leaving a game if game is inactive
   else if (((msg.content.startsWith(prefix + "leave")) || (msg.content.startsWith(prefix + "l"))) && (gameActive == false)) {
-    if (players.indexOf(msg.author) === -1) {
-      msg.channel.sendMessage("You are not in the game!");
-    }
-    if (players.indexOf(msg.author) > -1) {
-      players.splice(players.indexOf(msg.author), 1);
-      msg.channel.sendMessage("You have been removed from the game!");
-    }
+    leaveGame(msg, players)
   }
 
 });
