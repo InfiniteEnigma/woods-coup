@@ -23,3 +23,29 @@ function leaveGame(arg, array) {
     arg.channel.sendMessage(arg.author + " has been removed from the game!");
   }
 }
+
+function startGame(arg, array) {
+  if (gameActive == false) {
+    if (array.length >= 2) {
+      gameActive = true;
+      arg.channel.sendMessage("The game has begun! (Don't bother to) Check your DMs for further info.");
+    }
+    else {
+      arg.channel.sendMessage("Not enough players.");
+    }
+  }
+  else if (gameActive == true) {
+    arg.channel.sendMessage("The game has already begun!");
+  }
+}
+
+function killGame(arg, state, array) {
+  if (state == true) {
+    state = false;
+    array = [];
+    arg.channel.sendMessage("The game has been killed and all players have been purged! Please type '!join' to rejoin the game.");
+  }
+  else if (state == false) {
+    arg.channel.sendMessage("The game has not begun yet.");
+  }
+}

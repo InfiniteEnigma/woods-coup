@@ -5,7 +5,7 @@ var bot = new Discord.Client();
 var meta = require('fs');
 eval(meta.readFileSync('meta.js')+'');
 
-var gameActive = false
+var gameActive = false;
 var players = [];
 
 bot.on("message", msg => {
@@ -20,17 +20,33 @@ bot.on("message", msg => {
   }
 
   //Joining a game if game is inactive
-  else if (((msg.content.startsWith(prefix + "join")) || (msg.content.startsWith(prefix + "j"))) && (gameActive == false)) {
-    joinGame(msg, players)
+  else if (((msg.content == "!join") || (msg.content == "!j")) && (gameActive == false)) {
+    joinGame(msg, players);
   }
 
   //Leaving a game if game is inactive
-  else if (((msg.content.startsWith(prefix + "leave")) || (msg.content.startsWith(prefix + "l"))) && (gameActive == false)) {
-    leaveGame(msg, players)
+  else if (((msg.content == "!leave") || (msg.content == "!l")) && (gameActive == false)) {
+    leaveGame(msg, players);
   }
 
+  //Lists players
   else if (msg.content.startsWith(prefix + "players")) {
-    msg.channel.sendMessage(players)
+    if (players.length == 0) {
+      msg.channel.sendMessage("There are no players in the game!");
+    }
+    else {
+      msg.channel.sendMessage(players);
+    }
+  }
+
+  //Starts game
+  else if (msg.content == "!start") {
+    startGame(msg, players);
+  }
+
+  //Kills game
+  else if (msg.content == "!killgame") {
+    killGame(msg, gameActive, players);
   }
 
 });
