@@ -59,7 +59,9 @@ function beforeCoup(playerNum, IorA, playerIds) {
     //User.sendMessage("Hello! Welcome to the game! Your cards are " + playerInfo[i-1].firstcard + " and " + playerInfo[i-1].secondcard + ". Your current bank balance is " + playerInfo[i-1].balance + " coins. You are player number " + playerInfo[i-1].playerVal + ". Thank you for playing Coup and enjoy the game!");
     players.splice(randomNum, 1);
   }
-  console.log(playerInfo);
+  //console.log(playerInfo);
+  return playerInfo;
+  playerInfo = []; //wipes it clean after being returned
 }
 //msg.DMChannel.sendMessage for DM? Learn how later!
-beforeCoup(6,2,players);
+//beforeCoup(6,2,players);
