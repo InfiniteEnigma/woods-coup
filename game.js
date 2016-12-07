@@ -27,7 +27,7 @@ function shuffleArray(array) {
 }
 
 //function that gives players money, shuffles deck, deals cards, assigns each player a player number, and sends players private message before game begins
-function beforeCoup(playerNum, ambassadorInquisitor, playerIds) {
+function beforeCoup(playerNum, IorA, playerIds) {
   cardCount = Math.ceil((playerNum-5)/3) + 3;
   for (let i = 1; i <= cardCount; i++) {
     deck.push("Captain");
