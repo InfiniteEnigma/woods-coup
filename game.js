@@ -14,6 +14,7 @@ function handCards(card1, card2, money, playernum, id) {
   this.playerID = id
 }
 
+
 //function to shuffle cards
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -55,9 +56,10 @@ function beforeCoup(playerNum, ambassadorInquisitor, playerIds) {
   for (let i = 1; i <= playerNum; i++) {
     var randomNum = Math.floor(Math.random()*(playerNum-i+1));
     playerInfo[i-1].playerID = playerIds[randomNum];
-    console.log("Hello! Welcome to the game! Your cards are " + playerInfo[i-1].firstcard + " and " + playerInfo[i-1].secondcard + ". Your current bank balance is " + playerInfo[i-1].balance + " coins. You are player number " + playerInfo[i-1].playerVal + ". Thank you for playing Coup and enjoy the game!");
+    //User.sendMessage("Hello! Welcome to the game! Your cards are " + playerInfo[i-1].firstcard + " and " + playerInfo[i-1].secondcard + ". Your current bank balance is " + playerInfo[i-1].balance + " coins. You are player number " + playerInfo[i-1].playerVal + ". Thank you for playing Coup and enjoy the game!");
     players.splice(randomNum, 1);
   }
+  console.log(playerInfo);
 }
 //msg.DMChannel.sendMessage for DM? Learn how later!
 beforeCoup(6,2,players);
