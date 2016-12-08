@@ -34,10 +34,10 @@ function beforeCoup(playerNum, IorA, playerIds) {
     deck.push("Duke");
     deck.push("Contessa");
     deck.push("Assassin");
-    if (ambassadorInquisitor == 1) {
+    if (IorA == 1) {
       deck.push("Ambassador");
     }
-    else if (ambassadorInquisitor == 2) {
+    else if (IorA == 2) {
       deck.push("Inquisitor");
     }
   }
