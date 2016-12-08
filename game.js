@@ -61,10 +61,6 @@ function beforeCoup(playerNum, IorA, playerIds) {
   }
   //console.log(playerInfo);
   return playerInfo;
-  playerInfo = []; //wipes it clean after being returned
-  deck = [];
-  cardCount = 0;
-  deckRemain = 0;
 }
 //msg.DMChannel.sendMessage for DM? Learn how later!
 //beforeCoup(6,2,players);
