@@ -52,14 +52,14 @@ bot.on("message", msg => {
         //reloads game.js everytime start is called.
         var coupGame = require('fs');
         eval(coupGame.readFileSync('game.js')+'');
-         console.log(ambassadorInquisitor);
-	       playersGame = beforeCoup(players.length, ambassadorInquisitor, players)                                                                                       ;
-         courtDeck = deck;
-         console.log(courtDeck);
-         for (let i in playersGame) {
-           playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card One: " + playersGame[i].firstcard +
-                                               "\n Card Two: " + playersGame[i].secondcard + "\n Cash: " +
-                                               playersGame[i].balance + "```" + "Thank you for playing!");
+        console.log(ambassadorInquisitor);
+	playersGame = beforeCoup(players.length, ambassadorInquisitor, players)                                                                                       ;
+        courtDeck = deck;
+        console.log(courtDeck);
+        for (let i in playersGame) {
+          playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card One: " + playersGame[i].firstcard +
+                                              "\n Card Two: " + playersGame[i].secondcard + "\n Cash: " +
+                                              playersGame[i].balance + "```" + "Thank you for playing!");
         }
       }
     }
