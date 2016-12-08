@@ -14,8 +14,6 @@ var courtDeck = [];           // list of cards in the deck if game is active.
 
 bot.on("message", msg => {
 
-  let prefix = "!";
-
   if (msg.channel.type == "text") {
 
     //Test bot response.
@@ -34,7 +32,7 @@ bot.on("message", msg => {
     }
 
     //Lists players
-    else if (msg.content.startsWith(prefix + "players")) {
+    else if (msg.content.startsWith("!players")) {
       if (players.length == 0) {
         msg.channel.sendMessage("There are no players in the game!");
       }
