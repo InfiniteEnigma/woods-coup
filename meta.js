@@ -29,12 +29,12 @@ function startGame(arg, array, IorA, active, PlayersInfo) {
     if (array.length >= 1) {
       if (arg.content.startsWith("!start")) {
         if (arg.content === "!start i") {
-          IorA = 2;
+          ambassadorInquisitor = 2; //IorA = 2;
           gameActive = true;
           arg.channel.sendMessage("The game has begun! We will be playing with inquisitors. Check your DMs for further info.");
         }
         else if (arg.content === "!start a") {
-          IorA = 1;
+          ambassadorInquisitor = 1; //IorA = 1;
           gameActive = true;
           arg.channel.sendMessage("The game has begun! We will be playing with ambassadors. Check your DMs for further info.");
         }
