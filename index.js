@@ -4,15 +4,13 @@ var bot = new Discord.Client();
 //include meta.js
 var meta = require('fs');
 eval(meta.readFileSync('meta.js')+'');
-//include game.js
-//var coupGame = require('fs');
-//eval(coupGame.readFileSync('game.js')+'');
 
-var gameActive = false;
+//Global variables
+var gameActive = false;       // has the game begun?
 var ambassadorInquisitor = 0; // 0 = game has not started; 1 = ambassador; 2 = inquisitor
-var players = [];
-var playersGame = [];
-var courtDeck = [];
+var players = [];             // list of players in the game
+var playersGame = [];         // list of player info, cards, that stuff
+var courtDeck = [];           // list of cards in the deck if game is active.
 
 bot.on("message", msg => {
 
@@ -53,7 +51,7 @@ bot.on("message", msg => {
         var coupGame = require('fs');
         eval(coupGame.readFileSync('game.js')+'');
         console.log(ambassadorInquisitor);
-	playersGame = beforeCoup(players.length, ambassadorInquisitor, players)                                                                                       ;
+	      playersGame = beforeCoup(players.length, ambassadorInquisitor, players)                                                                                       ;
         courtDeck = deck;
         console.log(courtDeck);
         for (let i in playersGame) {
