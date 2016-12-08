@@ -12,7 +12,7 @@ var gameActive = false;
 var ambassadorInquisitor = 0; // 0 = game has not started; 1 = ambassador; 2 = inquisitor
 var players = [];
 var playersGame = [];
-var Deck = [];
+var courtDeck = [];
 
 bot.on("message", msg => {
 
@@ -53,13 +53,13 @@ bot.on("message", msg => {
         var coupGame = require('fs');
         eval(coupGame.readFileSync('game.js')+'');
          console.log(ambassadorInquisitor);
-	       playersGame = beforeCoup(players.length, ambassadorInquisitor, players);
-         Deck = deck;
-         console.log(Deck);
+	       playersGame = beforeCoup(players.length, ambassadorInquisitor, players)                                                                                       ;
+         courtDeck = deck;
+         console.log(courtDeck);
          for (let i in playersGame) {
-           playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card one: " + playersGame[i].firstcard +
-                                               "\n Card two: " + playersGame[i].secondcard + "\n Cash: " +
-                                               playersGame[i].balance + "```");
+           playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card One: " + playersGame[i].firstcard +
+                                               "\n Card Two: " + playersGame[i].secondcard + "\n Cash: " +
+                                               playersGame[i].balance + "```" + "Thank you for playing!");
         }
       }
     }
@@ -73,7 +73,7 @@ bot.on("message", msg => {
       //killGame(msg, gameActive, players, ambassadorInquisitor);
       //console.log(gameActive, players, ambassadorInquisitor);
       playersGame = [];
-      Deck = [];
+      courtDeck = [];
     }
 
   } //closes if channel is group

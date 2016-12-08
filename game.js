@@ -1,9 +1,6 @@
 //variables and arrays to be used in game
 var deck = [];
-var playerInfo = [];
-var cardCount;
 var deckRemain;
-//var players = ["111","222","333","444","555","666"];
 
 //function to declare objects that hold the cards of the player, the balance of the player, and the player number
 function handCards(card1, card2, money, playernum, id) {
@@ -26,9 +23,12 @@ function shuffleArray(array) {
   return array;
 }
 
-//function that gives players money, shuffles deck, deals cards, assigns each player a player number, and sends players private message before game begins
+//function that gives players money, shuffles deck, deals cards,
+//assigns each player a player number, and collects player IDs for each player
 function beforeCoup(playerNum, IorA, playerIds) {
-  cardCount = Math.ceil((playerNum-5)/3) + 3;
+  var playerInfo = [];
+  var cardCount = Math.ceil((playerNum-5)/3) + 3;;
+
   for (let i = 1; i <= cardCount; i++) {
     deck.push("Captain");
     deck.push("Duke");
@@ -41,26 +41,28 @@ function beforeCoup(playerNum, IorA, playerIds) {
       deck.push("Inquisitor");
     }
   }
+
   deck = shuffleArray(deck);
+
   if (playerNum == 2) {
     playerInfo.push(new handCards(deck[0],deck[2], 1));
     playerInfo.push(new handCards(deck[1],deck[3], 2));
   }
+
   else {
     for (let i = 1; i <= playerNum; i++) {
       playerInfo.push(new handCards(deck[i-1],deck[i+playerNum-1], 2, i, ""));
     }
   }
+
   deckRemain = deck.length - 2 * playerNum;
   deck.splice(0, 2*playerNum);
+
   for (let i = 1; i <= playerNum; i++) {
     var randomNum = Math.floor(Math.random()*(playerNum-i+1));
     playerInfo[i-1].playerID = playerIds[randomNum];
-    //User.sendMessage("Hello! Welcome to the game! Your cards are " + playerInfo[i-1].firstcard + " and " + playerInfo[i-1].secondcard + ". Your current bank balance is " + playerInfo[i-1].balance + " coins. You are player number " + playerInfo[i-1].playerVal + ". Thank you for playing Coup and enjoy the game!");
     players.splice(randomNum, 1);
   }
-  //console.log(playerInfo);
+  
   return playerInfo;
 }
-//msg.DMChannel.sendMessage for DM? Learn how later!
-//beforeCoup(6,2,players);
