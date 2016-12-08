@@ -3,7 +3,7 @@ var deck = [];
 var playerInfo = [];
 var cardCount;
 var deckRemain;
-var players = ["111","222","333","444","555","666"];
+//var players = ["111","222","333","444","555","666"];
 
 //function to declare objects that hold the cards of the player, the balance of the player, and the player number
 function handCards(card1, card2, money, playernum, id) {
@@ -62,6 +62,9 @@ function beforeCoup(playerNum, IorA, playerIds) {
   //console.log(playerInfo);
   return playerInfo;
   playerInfo = []; //wipes it clean after being returned
+  deck = [];
+  cardCount = 0;
+  deckRemain = 0;
 }
 //msg.DMChannel.sendMessage for DM? Learn how later!
 //beforeCoup(6,2,players);

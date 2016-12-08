@@ -4,13 +4,14 @@ var bot = new Discord.Client();
 //include meta.js
 var meta = require('fs');
 eval(meta.readFileSync('meta.js')+'');
-/*include meta.js
-var coupGame = require('fs');
-eval(meta.readFileSync('game.js')+'');*/
+//include game.js
+//var coupGame = require('fs');
+//eval(coupGame.readFileSync('game.js')+'');
 
 var gameActive = false;
 var ambassadorInquisitor = 0; // 0 = game has not started; 1 = ambassador; 2 = inquisitor
 var players = [];
+var playersGame = [];
 
 bot.on("message", msg => {
 
@@ -43,7 +44,18 @@ bot.on("message", msg => {
 
   //Starts game
   else if (msg.content.startsWith("!start")) {
-    startGame(msg, players, ambassadorInquisitor);
+    startGame(msg, players, ambassadorInquisitor, gameActive, playersGame);
+    if ((msg.content = "!start a" || "!start i") && (gameActive == true)) {
+      //reloads game.js everytime start is called.
+      var coupGame = require('fs');
+      eval(coupGame.readFileSync('game.js')+'');
+	    playersGame = beforeCoup(players.length, ambassadorInquisitor, players);
+      for (let i in playersGame) {
+        playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card one: " + playersGame[i].firstcard +
+                                            "\n Card two: " + playersGame[i].secondcard + "\n Cash: " +
+                                            playersGame[i].balance + "```");
+      }
+    }
   }
 
   //Kills game
@@ -53,7 +65,8 @@ bot.on("message", msg => {
     ambassadorInquisitor = 0;
     msg.channel.sendMessage("The game has been killed and all players have been purged! Please type '!join' to rejoin the game.");
     //killGame(msg, gameActive, players, ambassadorInquisitor);
-    console.log(gameActive, players, ambassadorInquisitor);
+    //console.log(gameActive, players, ambassadorInquisitor);
+    playersGame = [];
   }
 
 });
