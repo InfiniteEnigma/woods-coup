@@ -26,7 +26,7 @@ function leaveGame(arg, array) {
 
 function startGame(arg, array, IorA, active, PlayersInfo) {
   if (gameActive == false) {
-    if (array.length >= 1) {
+    if (array.length >= 2) {
       if (arg.content.startsWith("!start")) {
         if (arg.content === "!start i") {
           ambassadorInquisitor = 2; //IorA = 2;

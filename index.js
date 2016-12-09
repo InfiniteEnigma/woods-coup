@@ -11,6 +11,7 @@ var ambassadorInquisitor = 0; // 0 = game has not started; 1 = ambassador; 2 = i
 var players = [];             // list of players in the game
 var playersGame = [];         // list of player info, cards, that stuff
 var courtDeck = [];           // list of cards in the deck if game is active.
+var playerList = "";
 
 bot.on("message", msg => {
 
@@ -24,7 +25,6 @@ bot.on("message", msg => {
     //Joining a game if game is inactive
     else if (((msg.content == "!join") || (msg.content == "!j")) && (gameActive == false)) {
       joinGame(msg, players);
-      console.log(msg.author);
     }
 
     //Leaving a game if game is inactive
@@ -34,11 +34,16 @@ bot.on("message", msg => {
 
     //Lists players
     else if (msg.content.startsWith("!players")) {
-      if (players.length == 0) {
-        msg.channel.sendMessage("There are no players in the game!");
+      if (gameActive == false) {
+        if (players.length == 0) {
+          msg.channel.sendMessage("There are no players in the game!");
+        }
+        else {
+          msg.channel.sendMessage(players);
+        }
       }
-      else {
-        msg.channel.sendMessage(players);
+      else if (gameActive == true) {
+        msg.channel.sendMessage(playerList);
       }
     }
 
@@ -46,16 +51,14 @@ bot.on("message", msg => {
     else if (msg.content.startsWith("!start")) {
       startGame(msg, players, ambassadorInquisitor, gameActive, playersGame);
       if ((msg.content = "!start a" || "!start i") && (gameActive == true)) {
+
         //reloads game.js everytime start is called.
         var coupGame = require('fs');
         eval(coupGame.readFileSync('game.js')+'');
-        console.log(ambassadorInquisitor);
+
 	      playersGame = beforeCoup(players.length, ambassadorInquisitor, players)                                                                                       ;
         courtDeck = deck;
-        console.log(courtDeck);
-        console.log(players);
-        console.log(playersGame);
-        playerList = ""
+        console.log(gameActive);
         for (let i in playersGame) {
           playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card One: " + playersGame[i].firstcard +
                                               "\n Card Two: " + playersGame[i].secondcard + "\n Cash: " +
@@ -63,7 +66,7 @@ bot.on("message", msg => {
           //var tempValue = new Number(parseInt(i)+1)
           playerList = (playerList + /*tempValue*/ i + ". " + playersGame[i].playerID + "\n");
         }
-        msg.channel.sendMessage("These are the players playing the game!" + "\n" + playerList)
+        msg.channel.sendMessage("These are the players playing the game!" + "\n" + playerList);
       }
     }
 
@@ -77,6 +80,7 @@ bot.on("message", msg => {
       //console.log(gameActive, players, ambassadorInquisitor);
       playersGame = [];
       courtDeck = [];
+      playerList = "";
     }
 
     //FOR TESTING ONLY
@@ -85,7 +89,6 @@ bot.on("message", msg => {
       if (person) {
         msg.channel.sendMessage(person + " has been forced into the game.");
         players.push(person);
-        console.log(person);
       }
       else msg.channel.sendMessage("Player could not be forced into the game.")
     }
