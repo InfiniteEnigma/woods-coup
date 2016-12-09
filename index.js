@@ -4,6 +4,9 @@ var bot = new Discord.Client();
 //include meta.js
 var meta = require('fs');
 eval(meta.readFileSync('meta.js')+'');
+//include actions.js
+var actions = require('fs');
+eval(actions.readFileSync('actions.js')+'');
 
 //Global variables
 var gameActive = false;       // has the game begun?
@@ -58,7 +61,6 @@ bot.on("message", msg => {
 
 	      playersGame = beforeCoup(players.length, ambassadorInquisitor, players)                                                                                       ;
         courtDeck = deck;
-        console.log(gameActive);
         for (let i in playersGame) {
           playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card One: " + playersGame[i].firstcard +
                                               "\n Card Two: " + playersGame[i].secondcard + "\n Cash: " +
@@ -95,7 +97,14 @@ bot.on("message", msg => {
 
     // when gameActive == true | for easier reading lol
     else if (msg.content.startsWith("!view ")) {
-      var stalked = msg.content.slice(5,26);
+      console.log(playersGame);
+      var stalked = msg.content.slice(6);
+      console.log(stalked);
+      var card = "card";
+      checkCard(playersGame[stalked]);
+      card = Viewcard;
+      console.log(card);
+      msg.channel.sendMessage(playersGame[stalked].playerID + " has a " + card + " in his hand.");
     }
 
   } //closes if channel is group
