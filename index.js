@@ -17,13 +17,14 @@ bot.on("message", msg => {
   if (msg.channel.type == "text") {
 
     //Test bot response.
-    if (msg.content.startsWith(prefix + "ping")) {
+    if (msg.content.startsWith("!ping")) {
       msg.channel.sendMessage("Hi " + msg.author + "!");
     }
 
     //Joining a game if game is inactive
     else if (((msg.content == "!join") || (msg.content == "!j")) && (gameActive == false)) {
       joinGame(msg, players);
+      console.log(msg.author);
     }
 
     //Leaving a game if game is inactive
@@ -52,11 +53,17 @@ bot.on("message", msg => {
 	      playersGame = beforeCoup(players.length, ambassadorInquisitor, players)                                                                                       ;
         courtDeck = deck;
         console.log(courtDeck);
+        console.log(players);
+        console.log(playersGame);
+        playerList = ""
         for (let i in playersGame) {
           playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card One: " + playersGame[i].firstcard +
                                               "\n Card Two: " + playersGame[i].secondcard + "\n Cash: " +
                                               playersGame[i].balance + "```" + "Thank you for playing!");
+          //var tempValue = new Number(parseInt(i)+1)
+          playerList = (playerList + /*tempValue*/ i + ". " + playersGame[i].playerID + "\n");
         }
+        msg.channel.sendMessage("These are the players playing the game!" + "\n" + playerList)
       }
     }
 
@@ -72,6 +79,22 @@ bot.on("message", msg => {
       courtDeck = [];
     }
 
+    //FOR TESTING ONLY
+    else if (msg.content.startsWith("!forcejoin ")) {
+      var person = msg.mentions.users.first();
+      if (person) {
+        msg.channel.sendMessage(person + " has been forced into the game.");
+        players.push(person);
+        console.log(person);
+      }
+      else msg.channel.sendMessage("Player could not be forced into the game.")
+    }
+
+    // when gameActive == true | for easier reading lol
+    else if (msg.content.startsWith("!view ")) {
+      var stalked = msg.content.slice(5,26);
+    }
+
   } //closes if channel is group
 
   //loops 5 time for some reason
@@ -84,5 +107,7 @@ bot.on("message", msg => {
 bot.on('ready', () => {
   console.log('Ready to roll! \n');
 });
+
+bot.on('error', e => { console.error(e); });
 
 bot.login("tokenGoesHere");
