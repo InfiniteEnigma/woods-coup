@@ -1,19 +1,94 @@
-function checkCard(player) { //takes in a handCards object of playerInfo/playersGame; only when the player is alive | ie. playersGame[1]
+function checkCard(stalkee, arrayOfInfo) { //takes in a handCards object of playerInfo/playersGame; only when the player is alive | ie. playersGame[1]
   var card = "";
-  if ((player.firstcard == "dead") && (player.secondcard != "dead")) {
-    card = player.secondcard;
-  }
-  else if (player.secondcard == "dead" && player.firstcard != "dead") {
-    card = player.firstcard;
-  }
-  else {
-    var whichCard = Math.random();
-    if (whichCard >= 0.5) {
-      card = player.secondcard;  //player.secondcard;
-    }
-    else if (whichCard < 0.5) {
-      card = player.firstcard; //player.firstcard;
+  for (let i in arrayOfInfo) {
+    if (arrayOfInfo[i].playerID == stalkee) {
+      if ((arrayOfInfo[i].firstcard == "dead") && (arrayOfInfo[i].secondcard != "dead")) {
+        card = arrayOfInfo[i].secondcard;
+      }
+      else if (arrayOfInfo[i].secondcard == "dead" && arrayOfInfo[i].firstcard != "dead") {
+        card = arrayOfInfo[i].firstcard;
+      }
+      else {
+        var whichCard = Math.random();
+        if (whichCard >= 0.5) {
+          card = arrayOfInfo[i].secondcard;  //player.secondcard;
+        }
+        else if (whichCard < 0.5) {
+          card = arrayOfInfo[i] .firstcard; //player.firstcard;
+        }
+      }
     }
   }
   return card;
+}
+
+function income(arg, arrayOfInfo, player) {
+  var valid = false;
+  for (let i in arrayOfInfo) {
+    if (arrayOfInfo[i].playerID == player) {
+      arrayOfInfo[i].balance += 1;
+      valid = true;
+      arg.channel.sendMessage(player + "'s wallet is now " + arrayOfInfo[i].balance + " coins.")
+    }
+  }
+  if (valid == false) {
+    arg.channel.sendMessage("You are not in the game!");
+  }
+}
+
+function foreignAid(arg, arrayOfInfo, player) {
+  var valid = false;
+  /*
+  write code for Duke blocking here
+  */
+  for (let i in arrayOfInfo) {
+    if (arrayOfInfo[i].playerID == player) {
+      arrayOfInfo[i].balance += 2;
+      valid = true;
+      arg.channel.sendMessage(player + "'s wallet is now " + arrayOfInfo[i].balance + " coins.")
+    }
+  }
+  if (valid == false) {
+    arg.channel.sendMessage("You are not in the game!");
+  }
+}
+
+function tax(arg, arrayOfInfo, player) {
+  var valid = false;
+  /*
+  write code for challenging here
+  */
+  for (let i in arrayOfInfo) {
+    if (arrayOfInfo[i].playerID == player) {
+      arrayOfInfo[i].balance += 3;
+      valid = true;
+      arg.channel.sendMessage(player + "'s wallet is now " + arrayOfInfo[i].balance + " coins.")
+    }
+  }
+  if (valid == false) {
+    arg.channel.sendMessage("You are not in the game!");
+  }
+}
+
+function steal(arg, player, arrayOfInfo) { //player is person stolen from
+  var amountStolen = 0;
+  for (let i in arrayOfInfo) { //steal
+    if (arrayOfInfo[i].playerID == player) {
+      if (arrayOfInfo[i].balance == 1) {
+        arrayOfInfo[i].balance = 0;
+        amountStolen = 1;
+      }
+      else if (arrayOfInfo[i].balance >= 2) {
+        arrayOfInfo[i].balance -= 2;
+        amountStolen = 2;
+      }
+      arg.channel.sendMessage(player + " now has " + arrayOfInfo[i].balance + " coins.")
+    }
+  }
+  for (let i in arrayOfInfo) {
+    if (arrayOfInfo[i].playerID == arg.author) {
+      arrayOfInfo[i].balance += amountStolen;
+      arg.channel.sendMessage(arg.author + " now has " + arrayOfInfo[i].balance + " coins.")
+    }
+  }
 }

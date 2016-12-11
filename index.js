@@ -92,16 +92,40 @@ bot.on("message", msg => {
         msg.channel.sendMessage(person + " has been forced into the game.");
         players.push(person);
       }
-      else msg.channel.sendMessage("Player could not be forced into the game.")
+      else msg.channel.sendMessage("Player could not be forced into the game.");
     }
 
     // when gameActive == true | for easier reading lol
-    else if (msg.content.startsWith("!view ")) {
-      var stalked = msg.content.slice(6);
-      Card = checkCard(playersGame[stalked]);
-      console.log("Card is " + Card);
-      msg.channel.sendMessage(msg.author.playerID + ", please check your DMs.")
-      msg.author.sendMessage(playersGame[stalked].playerID + " has a " + Card + " in his hand.");
+    else if (msg.content.startsWith("!view ") && (gameActive == true)) {
+      var stalked = msg.mentions.users.first();
+      if (stalked) {
+        Card = checkCard(stalked, playersGame);
+        msg.channel.sendMessage(msg.author + ", please check your DMs.")
+        msg.author.sendMessage(stalked + " has a " + Card + " in his hand.");
+      }
+      else {
+        msg.channel.sendMessage("Not a valid player!");
+      }
+    }
+
+    else if (msg.content.startsWith("!income") || msg.content.startsWith("!onecoin")) {
+      income(msg, playersGame, msg.author);
+    }
+
+    else if (msg.content.startsWith("!foreignaid") || msg.content.startsWith("!twocoins")) {
+      foreignAid(msg, playersGame, msg.author);
+    }
+
+    else if (msg.content.startsWith("!taxes") || msg.content.startsWith("!threecoin") || msg.content.startsWith("!tax")) {
+      tax(msg, playersGame, msg.author);
+    }
+
+    else if (msg.content.startsWith("!steal ")) {
+      var person = msg.mentions.users.first();
+      if (person) {
+        steal(msg, person, playersGame);
+      }
+      else msg.channel.sendMessage("Player could not be stealed from.");
     }
 
   } //closes if channel is group

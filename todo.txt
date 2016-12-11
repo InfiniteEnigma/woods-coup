@@ -9,12 +9,13 @@ Commands
 !assassinate [#]
 !steal [#]
 !coup [#]
-!graveyard    
+!graveyard
 !help
 !swapself (inquisitor and ambassador games)
 !view followed by !swap or !keep (inquisitor games)
 !wallet or !cash (lists all players)
 !viewcards (PMs player)
+!block
 !challenge (?) or !yes after bot asks for challenges?
 
 
