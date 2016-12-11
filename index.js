@@ -65,7 +65,7 @@ bot.on("message", msg => {
           playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card One: " + playersGame[i].firstcard +
                                               "\n Card Two: " + playersGame[i].secondcard + "\n Cash: " +
                                               playersGame[i].balance + "```" + "Thank you for playing!");
-          //var tempValue = new Number(parseInt(i)+1)
+                                            //var tempValue = new Number(parseInt(i)+1)
           playerList = (playerList + /*tempValue*/ i + ". " + playersGame[i].playerID + "\n");
         }
         msg.channel.sendMessage("These are the players playing the game!" + "\n" + playerList);
@@ -97,14 +97,11 @@ bot.on("message", msg => {
 
     // when gameActive == true | for easier reading lol
     else if (msg.content.startsWith("!view ")) {
-      console.log(playersGame);
       var stalked = msg.content.slice(6);
-      console.log(stalked);
-      var card = "card";
-      checkCard(playersGame[stalked]);
-      card = Viewcard;
-      console.log(card);
-      msg.channel.sendMessage(playersGame[stalked].playerID + " has a " + card + " in his hand.");
+      Card = checkCard(playersGame[stalked]);
+      console.log("Card is " + Card);
+      msg.channel.sendMessage(msg.author.playerID + ", please check your DMs.")
+      msg.author.sendMessage(playersGame[stalked].playerID + " has a " + Card + " in his hand.");
     }
 
   } //closes if channel is group
