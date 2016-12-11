@@ -1,3 +1,8 @@
+//counter
+function counter(role) { //where role is the role that can block
+
+}
+
 function checkCard(stalkee, arrayOfInfo) { //takes in a handCards object of playerInfo/playersGame; only when the player is alive | ie. playersGame[1]
   var card = "";
   for (let i in arrayOfInfo) {
