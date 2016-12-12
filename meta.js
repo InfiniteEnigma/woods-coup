@@ -69,3 +69,7 @@ function killGame(arg, state, array, IorA) {
     arg.channel.sendMessage("The game has not begun yet.");
   }
 }
+
+function help(arg) {
+  // DM help message to player
+}

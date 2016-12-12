@@ -1,9 +1,11 @@
+//include Discord.js
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 
 //include meta.js
 var meta = require('fs');
 eval(meta.readFileSync('meta.js')+'');
+
 //include actions.js
 var actions = require('fs');
 eval(actions.readFileSync('actions.js')+'');
@@ -14,7 +16,8 @@ var ambassadorInquisitor = 0; // 0 = game has not started; 1 = ambassador; 2 = i
 var players = [];             // list of players in the game
 var playersGame = [];         // list of player info, cards, that stuff
 var courtDeck = [];           // list of cards in the deck if game is active.
-var playerList = "";
+var playerList = "";          // i have too many variables called players lol; this one is for the numbered list
+var turn = 0;
 
 bot.on("message", msg => {
 
@@ -23,6 +26,19 @@ bot.on("message", msg => {
     //Test bot response.
     if (msg.content.startsWith("!ping")) {
       msg.channel.sendMessage("Hi " + msg.author + "!");
+    }
+
+    //Kills game
+    else if (msg.content == "!killgame") {
+      gameActive = false;
+      players = [];
+      ambassadorInquisitor = 0;
+      msg.channel.sendMessage("The game has been killed and all players have been purged! Please type '!join' to rejoin the game.");
+      //killGame(msg, gameActive, players, ambassadorInquisitor);
+      playersGame = [];
+      courtDeck = [];
+      playerList = "";
+      turn = 0;
     }
 
     //Joining a game if game is inactive
@@ -50,6 +66,56 @@ bot.on("message", msg => {
       }
     }
 
+    // when gameActive == true | ie when the game is running
+    else if (gameActive == true && msg.content.startsWith("!")) {
+
+      if (msg.author == playersGame[turn].playerID) { //coment this out if testing w/ bots
+
+        if (msg.content.startsWith("!view ") && (gameActive == true)) {
+          var stalked = msg.mentions.users.first();
+          if (stalked) {
+            Card = checkCard(stalked, playersGame, msg);
+            msg.channel.sendMessage(msg.author + ", please check your DMs.")
+            msg.author.sendMessage(stalked + " has a " + Card + " in his hand.");
+          }
+          else {
+            msg.channel.sendMessage("Not a valid player!");
+          }
+        }
+
+        else if (msg.content.startsWith("!income") || msg.content.startsWith("!onecoin")) {
+          income(msg, playersGame, msg.author);
+        }
+
+        else if (msg.content.startsWith("!foreignaid") || msg.content.startsWith("!twocoins")) {
+          foreignAid(msg, playersGame, msg.author);
+        }
+
+        else if (msg.content.startsWith("!taxes") || msg.content.startsWith("!threecoin") || msg.content.startsWith("!tax")) {
+          tax(msg, playersGame, msg.author);
+        }
+
+        else if (msg.content.startsWith("!steal ")) {
+          var person = msg.mentions.users.first();
+          if (person) {
+            steal(msg, person, playersGame);
+            turn += 1
+            if (turn > (playersGame.length-1)) {
+              turn = 0;
+            }
+            msg.channel.sendMessage(playersGame[turn].playerID + ", it's your turn!");
+          }
+          else msg.channel.sendMessage("Player could not be stealed from.");
+        }
+
+      } //ends if message author == whos turn it is
+
+      if (msg.content.startsWith("!me")) {
+        //display info about the player
+      }
+
+    }
+
     //Starts game
     else if (msg.content.startsWith("!start")) {
       startGame(msg, players, ambassadorInquisitor, gameActive, playersGame);
@@ -65,24 +131,12 @@ bot.on("message", msg => {
           playersGame[i].playerID.sendMessage("Welcome to Coup!\n ``` Card One: " + playersGame[i].firstcard +
                                               "\n Card Two: " + playersGame[i].secondcard + "\n Cash: " +
                                               playersGame[i].balance + "```" + "Thank you for playing!");
-                                            //var tempValue = new Number(parseInt(i)+1)
-          playerList = (playerList + /*tempValue*/ i + ". " + playersGame[i].playerID + "\n");
+          var tempValue = new Number(parseInt(i)+1)
+          playerList = (playerList + tempValue + ". " + playersGame[i].playerID + "\n");
         }
         msg.channel.sendMessage("These are the players playing the game!" + "\n" + playerList);
+        msg.channel.sendMessage(playersGame[turn].playerID + ", it's your turn!");
       }
-    }
-
-    //Kills game
-    else if (msg.content == "!killgame") {
-      gameActive = false;
-      players = [];
-      ambassadorInquisitor = 0;
-      msg.channel.sendMessage("The game has been killed and all players have been purged! Please type '!join' to rejoin the game.");
-      //killGame(msg, gameActive, players, ambassadorInquisitor);
-      //console.log(gameActive, players, ambassadorInquisitor);
-      playersGame = [];
-      courtDeck = [];
-      playerList = "";
     }
 
     //FOR TESTING ONLY
@@ -93,39 +147,6 @@ bot.on("message", msg => {
         players.push(person);
       }
       else msg.channel.sendMessage("Player could not be forced into the game.");
-    }
-
-    // when gameActive == true | for easier reading lol
-    else if (msg.content.startsWith("!view ") && (gameActive == true)) {
-      var stalked = msg.mentions.users.first();
-      if (stalked) {
-        Card = checkCard(stalked, playersGame);
-        msg.channel.sendMessage(msg.author + ", please check your DMs.")
-        msg.author.sendMessage(stalked + " has a " + Card + " in his hand.");
-      }
-      else {
-        msg.channel.sendMessage("Not a valid player!");
-      }
-    }
-
-    else if (msg.content.startsWith("!income") || msg.content.startsWith("!onecoin")) {
-      income(msg, playersGame, msg.author);
-    }
-
-    else if (msg.content.startsWith("!foreignaid") || msg.content.startsWith("!twocoins")) {
-      foreignAid(msg, playersGame, msg.author);
-    }
-
-    else if (msg.content.startsWith("!taxes") || msg.content.startsWith("!threecoin") || msg.content.startsWith("!tax")) {
-      tax(msg, playersGame, msg.author);
-    }
-
-    else if (msg.content.startsWith("!steal ")) {
-      var person = msg.mentions.users.first();
-      if (person) {
-        steal(msg, person, playersGame);
-      }
-      else msg.channel.sendMessage("Player could not be stealed from.");
     }
 
   } //closes if channel is group

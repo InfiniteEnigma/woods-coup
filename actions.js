@@ -1,9 +1,35 @@
-//counter
-function counter(role) { //where role is the role that can block
-
+/* function discardCard(player) {
+  player.playerID.sendMessage("Please select a card to discard:\n1. " + player.firstcard + "\n2. " + player.secondcard);
+  //counter {
+    bot.on("message", discard => {
+      if (discard.author == player.playerID) {
+        if (discard.content.)
+      }
+    });
+  //counter }
 }
 
-function checkCard(stalkee, arrayOfInfo) { //takes in a handCards object of playerInfo/playersGame; only when the player is alive | ie. playersGame[1]
+function challenge(arg, challenger, challengee, role) {//challenger = person challenging, challengee = person challanged, role = role being challenged
+  if (role != (challengee.firstcard || challengee.secondcard)) { //ie. challenger is right
+
+  }
+  else if (role == (challengee.firstcard || challengee.secondcard)) { //ie. challenger is wrong
+
+  }
+}
+
+//counter
+function counter() {
+  currentTime = Date.now();
+  endTime = Date.now() + 60000;
+  tenFiveFourThreeTwoOne = [false,false,false,false,false,false];
+  while (initTime < endTime) {
+
+    currentTime = Date.now();
+  }
+} */
+
+function checkCard(stalkee, arrayOfInfo, arg) { //takes in a handCards object of playerInfo/playersGame; only when the player is alive | ie. playersGame[1]
   var card = "";
   for (let i in arrayOfInfo) {
     if (arrayOfInfo[i].playerID == stalkee) {
@@ -24,16 +50,28 @@ function checkCard(stalkee, arrayOfInfo) { //takes in a handCards object of play
       }
     }
   }
+
+  turn += 1
+  if (turn > (playersGame.length-1)) {
+    turn = 0;
+  }
+  arg.channel.sendMessage(arrayOfInfo[turn].playerID + ", it's your turn!");
   return card;
 }
 
-function income(arg, arrayOfInfo, player) {
+function income(arg, arrayOfInfo, player) { // not challengeable
   var valid = false;
   for (let i in arrayOfInfo) {
     if (arrayOfInfo[i].playerID == player) {
       arrayOfInfo[i].balance += 1;
       valid = true;
       arg.channel.sendMessage(player + "'s wallet is now " + arrayOfInfo[i].balance + " coins.")
+
+      turn += 1
+      if (turn > (playersGame.length-1)) {
+        turn = 0;
+      }
+      arg.channel.sendMessage(playersGame[turn].playerID + ", it's your turn!");
     }
   }
   if (valid == false) {
@@ -51,6 +89,12 @@ function foreignAid(arg, arrayOfInfo, player) {
       arrayOfInfo[i].balance += 2;
       valid = true;
       arg.channel.sendMessage(player + "'s wallet is now " + arrayOfInfo[i].balance + " coins.")
+
+      turn += 1
+      if (turn > (playersGame.length-1)) {
+        turn = 0;
+      }
+      arg.channel.sendMessage(arrayOfInfo[turn].playerID + ", it's your turn!");
     }
   }
   if (valid == false) {
@@ -68,6 +112,12 @@ function tax(arg, arrayOfInfo, player) {
       arrayOfInfo[i].balance += 3;
       valid = true;
       arg.channel.sendMessage(player + "'s wallet is now " + arrayOfInfo[i].balance + " coins.")
+
+      turn += 1
+      if (turn > (playersGame.length-1)) {
+        turn = 0;
+      }
+      arg.channel.sendMessage(arrayOfInfo[turn].playerID + ", it's your turn!");
     }
   }
   if (valid == false) {
@@ -96,4 +146,8 @@ function steal(arg, player, arrayOfInfo) { //player is person stolen from
       arg.channel.sendMessage(arg.author + " now has " + arrayOfInfo[i].balance + " coins.")
     }
   }
+}
+
+function kill(AorC, target, killer) {
+
 }
