@@ -1,4 +1,31 @@
-Opening
-	Get players (2 or greater)
-	Shuffle enough cards into deck for balanced game
-	
+Commands
+!join or !j
+!leave or !l
+!play i or !play a
+!killgame (admin command)
+!income or !onecoin
+!foreignaid or !twocoins
+!tax or !threecoins
+!assassinate [#]
+!steal [#]
+!coup [#]
+!graveyard
+!help
+!swapself (inquisitor and ambassador games)
+!view followed by !swap or !keep (inquisitor games)
+!wallet or !cash (lists all players)
+!viewcards (PMs player)
+!block
+!challenge (?) or !yes after bot asks for challenges?
+
+
+Before Play
+Bot waits for !join, !leave, !play commands
+If !play a/i is typed, bot checks for 2 or more players
+Bot checks which game mode is being played (ambass/inquist)
+
+
+Opening Play
+Bot checks number of players and shuffles certain number of cards into deck
+Bot deals each player 2 cards and 2 coins and sends a pm to player with their cards and cash
+Bot randomly assigns a turn order, and messages in chat whose turn it is
