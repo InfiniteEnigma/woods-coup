@@ -1,4 +1,4 @@
-/* function discardCard(player) {
+ /*function discardCard(player) {
   player.playerID.sendMessage("Please select a card to discard:\n1. " + player.firstcard + "\n2. " + player.secondcard);
   //counter {
     bot.on("message", discard => {
@@ -16,18 +16,13 @@ function challenge(arg, challenger, challengee, role) {//challenger = person cha
   else if (role == (challengee.firstcard || challengee.secondcard)) { //ie. challenger is wrong
 
   }
-}
+}*/
 
 //counter
-function counter() {
-  currentTime = Date.now();
+/*function counter(arg) {
   endTime = Date.now() + 60000;
-  tenFiveFourThreeTwoOne = [false,false,false,false,false,false];
-  while (initTime < endTime) {
-
-    currentTime = Date.now();
-  }
-} */
+  setTimeout()
+}*/
 
 function checkCard(stalkee, arrayOfInfo, arg) { //takes in a handCards object of playerInfo/playersGame; only when the player is alive | ie. playersGame[1]
   var card = "";

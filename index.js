@@ -18,10 +18,30 @@ var playersGame = [];         // list of player info, cards, that stuff
 var courtDeck = [];           // list of cards in the deck if game is active.
 var playerList = "";          // i have too many variables called players lol; this one is for the numbered list
 var turn = 0;
+var test;                     //timeout function
 
 bot.on("message", msg => {
 
   if (msg.channel.type == "text") {
+
+    // test countdown
+    if (msg.content.startsWith("!cd")) {
+      msg.channel.sendMessage("countdown started!");
+      test = setTimeout(function() {
+        console.log("automatically broken!");
+        msg.channel.sendMessage("automatically broken!");
+      }, 5000);
+    }
+
+    // break countdown
+    if (msg == "stopcd") {
+      if (test != undefined) {
+        console.log("manually broken!");
+        msg.channel.sendMessage("manually broken!");
+      }
+      clearTimeout(test);
+      test = undefined;
+    }
 
     //Test bot response.
     if (msg.content.startsWith("!ping")) {
@@ -164,4 +184,4 @@ bot.on('ready', () => {
 
 bot.on('error', e => { console.error(e); });
 
-bot.login("tokenGoesHere");
+bot.login("bot key here");
